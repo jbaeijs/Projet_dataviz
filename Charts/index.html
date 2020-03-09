@@ -1,21 +1,26 @@
 <html>
   <head>
+
+      <link href="css/main.css" rel="stylesheet">
+
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="lib/papaparse.min.js"></script>
     
-
     <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
 
     <script type="text/javascript">
 
-      // Récupération du fichier sélectionné:
-      document.getElementById('txtFileUpload').addEventListener('change', upload, false);
- 
-      var PARSED_DATASET;
+      // Variable de configuration :
+      var DONNEES_PARSEES;
+
+      // Variables de données utilisable par les graphiques :
       var NOMBRE_TOTAL_FUMEURS;
       var NOMBRE_PERSONNES_TOTALES;
+
+      // Récupération du fichier sélectionné:
+      document.getElementById('txtFileUpload').addEventListener('change', upload, false);
 
       // Stocker les données du fichier dans une varibale
       function upload(evt) {
@@ -27,11 +32,11 @@
         reader.onload = function(event) {
           var csvData = event.target.result;
           var data = Papa.parse(csvData, {header : true});
-          this.PARSED_DATASET = data;
+          this.DONNEES_PARSEES = data;
           console.log(data);
           
           // Fonction de nettoyage des données
-          countPreviousSmokers(data)
+          dataExtractor(data)
         };
 
         // En cas d'erreur: Avertir l'utilisateur
@@ -40,10 +45,11 @@
         };
       }
 
-      function countPreviousSmokers(data){
-        console.log(data);
-        var nombreTotalDeFumeurs = 0;
+      function dataExtractor(data){
         var nombreDePersonnesTotales = 0;
+
+        // Extraction du nombre de fumeurs ou d'anciens fumeurs
+        var nombreTotalDeFumeurs = 0;
         for (var i = 0; i < data.data.length; i++){
             if (data.data[i].FDR_tabagismeAncien == "1"){
                 nombreTotalDeFumeurs++;
@@ -52,7 +58,6 @@
         }
         this.NOMBRE_PERSONNES_TOTALES = nombreDePersonnesTotales;
         this.NOMBRE_TOTAL_FUMEURS = nombreTotalDeFumeurs;
-        console.log(nombreTotalDeFumeurs, nombreDePersonnesTotales)
 
         // Fonction d'initialisation de la librairie GOOGLE CHARTS
         initialeGoogleCharts()
@@ -79,7 +84,7 @@
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Anciens fumeurs');
-        data.addColumn('number', 'Slices');
+        data.addColumn('number', 'Non Fumeurs');
         data.addRows([
           ['Anciens fumeurs', this.NOMBRE_TOTAL_FUMEURS],
           ['Non fumeurs', personnesNonFumeurs],
@@ -89,15 +94,16 @@
         var options = {'title':'Tabac et dépression',
                     'width':400,
                     'height':300,
-                    'is3D': true
+                    'is3D': true,
+                    'animation':{
+                      duration: 1000,
+                      easing: 'in',
+                    }
                 };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-
-        var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
-        chart2.draw(data, options);
       }
     </script>
   </head>
@@ -105,6 +111,5 @@
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
-    <div id="chart_div2"></div>
   </body>
 </html>
