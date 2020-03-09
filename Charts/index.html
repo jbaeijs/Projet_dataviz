@@ -2,13 +2,45 @@
   <head>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="lib/papaparse.min.js"></script>
+    
+
+    <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+      document.getElementById('txtFileUpload').addEventListener('change', upload, false);
+ 
+      var PARSED_DATASET;
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+      function upload(evt) {
+        
+        var data = null;
+        var file = evt.target.files[0];
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function(event) {
+          var csvData = event.target.result;
+          var data = Papa.parse(csvData, {header : true});
+          this.PARSED_DATASET = data;
+          console.log(data);
+          console.log(data.data[0]);
+
+          initialeGoogleCharts()
+        };
+        reader.onerror = function() {
+          alert('Unable to read ' + file.fileName);
+        };
+      }
+
+      function initialeGoogleCharts(){
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+      }
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -17,14 +49,14 @@
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
+        data.addColumn('string', 'Oui');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Fumeurs', 3],
-          ['Epilepsie', 1],
-          ['Tension élevé', 1],
-          ['Tension trop faible', 1],
-          ['Electrocardiogramme', 2]
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
         ]);
 
         // Set chart options
