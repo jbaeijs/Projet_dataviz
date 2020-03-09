@@ -14,7 +14,8 @@
       document.getElementById('txtFileUpload').addEventListener('change', upload, false);
  
       var PARSED_DATASET;
-      var CLEANED_DATASET;
+      var NOMBRE_TOTAL_FUMEURS;
+      var NOMBRE_PERSONNES_TOTALES;
 
       // Stocker les données du fichier dans une varibale
       function upload(evt) {
@@ -30,7 +31,7 @@
           console.log(data);
           
           // Fonction de nettoyage des données
-          dataCleanup(data)
+          countPreviousSmokers(data)
         };
 
         // En cas d'erreur: Avertir l'utilisateur
@@ -39,11 +40,19 @@
         };
       }
 
-      function dataCleanup(data){
+      function countPreviousSmokers(data){
         console.log(data);
+        var nombreTotalDeFumeurs = 0;
+        var nombreDePersonnesTotales = 0;
         for (var i = 0; i < data.data.length; i++){
-            console.log(data.data[i]);
+            if (data.data[i].FDR_tabagismeAncien == "1"){
+                nombreTotalDeFumeurs++;
+            }
+            nombreDePersonnesTotales++;
         }
+        this.NOMBRE_PERSONNES_TOTALES = nombreDePersonnesTotales;
+        this.NOMBRE_TOTAL_FUMEURS = nombreTotalDeFumeurs;
+        console.log(nombreTotalDeFumeurs, nombreDePersonnesTotales)
 
         // Fonction d'initialisation de la librairie GOOGLE CHARTS
         initialeGoogleCharts()
@@ -63,16 +72,17 @@
       // draws it.
       function drawChart() {
 
+        console.log(this.NOMBRE_PERSONNES_TOTALES, this.NOMBRE_TOTAL_FUMEURS);
+
+        var personnesNonFumeurs = this.NOMBRE_PERSONNES_TOTALES - this.NOMBRE_TOTAL_FUMEURS;
+
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Oui');
+        data.addColumn('string', 'Anciens fumeurs');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
+          ['Anciens fumeurs', this.NOMBRE_TOTAL_FUMEURS],
+          ['Non fumeurs', personnesNonFumeurs],
         ]);
 
         // Set chart options
