@@ -1,0 +1,287 @@
+01 Ain 
+5.226, 46.205
+
+02Aisne 
+3.626, 49.569
+
+03 Allier 
+3.334, 46.567
+
+04 AlpesDeHautesProvence 
+6.235, 44.095
+
+05 HautesAlpes 
+6.076, 44.558
+
+06 AlpesMaritimes 
+7.262, 43.706
+
+07 Ardeche 
+4.597, 44.735
+
+08 Ardennes 
+4.720, 49.762
+
+09 Ariege 
+1.608, 42.959
+
+10 Aube 
+4.071, 48.296
+
+11 Aude 
+2.348, 43.216
+
+12 Aveyron 
+2.571, 44.353
+
+13 BouchesDuRhone 
+5.369, 43.296
+
+14 Calvados 
+-0.360, 49.184
+
+15 Cantal 
+2.444, 44.926
+
+16 Charente 
+0.154, 45.652
+
+17 CharenteMaritime 
+-1.151, 46.161
+
+18 Cher 
+2.396, 47.080
+
+19 Correze 
+1.768, 45.263
+
+21 CoteDOr 
+5.035, 47.322
+
+22 CotesDArmor 
+-2.773, 48.514
+
+23 Creuse 
+1.874, 46.169
+
+24 Dordogne 
+0.721, 45.185
+
+25 Doubs 
+6.025, 47.245
+
+26 Drome 
+4.894, 44.926
+
+27 Eure 
+1.153, 49.023
+
+28 EureEtLoir 
+1.491, 48.445
+
+29 Finistere 
+-4.109, 47.994
+
+2A CorseDuSud 
+8.734, 41.920
+
+2B HauteCorse 
+9.446, 42.694
+
+30 Gard 
+4.360, 43.838
+
+31 HauteGaronne 
+1.450, 43.599
+
+32 Gers 
+0.588, 43.645
+
+33 Gironde 
+-0.574, 44.843
+
+34 Herault 
+3.874, 43.608
+
+35 IlleEtVilaine 
+-1.680, 48.107
+
+36 Indre 
+1.698, 46.811
+
+37 IndreEtLoire 
+0.683, 47.392
+
+38 Isere 
+5.722, 45.185
+
+39 Jura 
+5.552, 46.672
+
+40 Landes 
+-0.501, 43.891
+
+41 LoirEtCher 
+1.327, 47.588
+
+42 Loire 
+4.389, 45.440
+
+43 HauteLoire 
+3.887, 45.041
+
+44 LoireAtlantique 
+-1.551, 47.226
+
+45 Loiret 
+1.907, 47.903
+
+46 Lot 
+1.441, 44.447
+
+47 LotEtGaronne 
+0.621, 44.207
+
+48 Lozere 
+3.498, 44.518
+
+49 MaineEtLoire 
+-0.542, 47.452
+
+50 Manche 
+-1.091, 49.113
+
+51 Marne 
+4.361, 48.957
+
+52 HauteMarne 
+5.139, 48.110
+
+53 Mayenne 
+-0.773, 48.071
+
+54 MeurtheEtMoselle 
+6.174, 48.689
+
+55 Meuse 
+5.172, 48.771
+
+56 Morbihan 
+-2.760, 47.654
+
+57 Moselle 
+6.183, 49.109
+
+58 Nievre 
+3.155, 46.994
+
+59 Nord 
+3.044, 50.628
+
+60 Oise 
+2.081, 49.435
+
+61 Orne 
+0.088, 48.433
+
+62 PasDeCalais 
+2.767, 50.289
+
+63 PuyDeDome 
+3.085, 45.779
+
+64 PyreneesAtlantiques 
+-0.367, 43.302
+
+65 HautesPyrenees 
+0.071, 43.233
+
+66 PyreneesOrientales 
+2.893, 42.698
+
+67 BasRhin 
+7.755, 48.584
+
+68 HautRhin 
+7.355, 48.077
+
+69 Rhone 
+4.835, 45.766
+
+70 HauteSaone 
+6.158, 47.620
+
+71 SaoneEtLoire 
+4.831, 46.308
+
+72 Sarthe 
+0.203, 47.996
+
+73 Savoie 
+5.918, 45.571
+
+74 HauteSavoie 
+6.126, 45.906
+
+75 Paris 
+2.351, 48.856
+
+76 SeineMaritime 
+1.089, 49.437
+
+77 SeineEtMarne 
+2.657, 48.540
+
+78 Yvelines 
+2.136, 48.806
+
+79 DeuxSevres 
+-0.462, 46.324
+
+80 Somme 
+2.293, 49.894
+
+81 Tarn 
+2.142, 43.928
+
+82 TarnEtGaronne 
+1.360, 44.017
+
+83 Var 
+5.933, 43.126
+
+84 Vaucluse 
+4.810, 43.946
+
+85 Vendee
+-1.429, 46.672
+
+86 Vienne 
+0.343, 46.584
+
+87 HauteVienne 
+1.258, 45.831
+
+88 Vosges 
+6.447, 48.176
+
+89 Yonne 
+3.571, 47.798
+
+90 TerritoireDeBelfort 
+6.855, 47.642
+
+91 Essonne 
+2.442, 48.635
+
+92 HautsDeSeine 
+2.208, 48.890
+
+93 SeineSaintDenis 
+2.441, 48.907
+
+94 ValDeMarne 
+2.460, 48.793
+
+95 ValDOise 
+2.094, 49.051
