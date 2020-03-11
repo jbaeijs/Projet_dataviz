@@ -11,10 +11,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
+    <h1>Etudes des antécédents de dépression en fonction du tabagisme ancien par départements</h1>
+
     <!-- Chargement du fichier .csv -->
     <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
 
     <script type="text/javascript">
+      
+      // Variable globale pour stocker la carte
+      var MAP = 0;
 
       // Tableau de correspondance des départements
       var COORD_DEPARTEMENTS = {
@@ -24,7 +29,8 @@
           "longitude": 5.226,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "02": {
           "nom": "Aisne",
@@ -32,7 +38,8 @@
           "longitude": 3.626,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "03": {
           "nom": "Allier",
@@ -40,7 +47,8 @@
           "longitude": 3.626,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "04": {
           "nom": "Alpes de Hautes Provence",
@@ -48,7 +56,8 @@
           "longitude": 6.235,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "05": {
           "nom": "Hautes Alpes",
@@ -56,7 +65,8 @@
           "longitude": 6.076,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "06": {
           "nom": "Alpes Maritime",
@@ -64,7 +74,8 @@
           "longitude": 7.262,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "07": {
           "nom": "Ardeche",
@@ -72,7 +83,8 @@
           "longitude": 4.597,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "08": {
           "nom": "Ardennes",
@@ -80,7 +92,8 @@
           "longitude": 4.720,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "09": {
           "nom": "Ariege",
@@ -88,7 +101,8 @@
           "longitude": 1.608,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "10": {
           "nom": "Aube",
@@ -96,7 +110,8 @@
           "longitude": 4.071,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "11": {
           "nom": "Aude",
@@ -104,7 +119,8 @@
           "longitude": 2.348,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "13": {
           "nom": "Aveyron",
@@ -112,7 +128,8 @@
           "longitude": 2.571,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "14": {
           "nom": "Bouches du Rhone",
@@ -120,7 +137,8 @@
           "longitude": 5.369,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "15": {
           "nom": "Calvados",
@@ -128,7 +146,8 @@
           "longitude": -0.360,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "16": {
           "nom": "Cantal",
@@ -136,7 +155,8 @@
           "longitude": 2.444,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "17": {
           "nom": "Charente",
@@ -144,7 +164,8 @@
           "longitude": 0.154,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "18": {
           "nom": "Charente Maritime",
@@ -152,7 +173,8 @@
           "longitude": -1.151,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "19": {
           "nom": "Cher",
@@ -160,7 +182,8 @@
           "longitude": 2.396,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "20": {
           "nom": "Correze",
@@ -168,7 +191,8 @@
           "longitude": 1.768,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "21": {
           "nom": "Cote D'or",
@@ -176,7 +200,8 @@
           "longitude": 5.035,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "22": {
           "nom": "Cotes d'Armor",
@@ -184,7 +209,8 @@
           "longitude": -2.773,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "23": {
           "nom": "Creuse",
@@ -192,7 +218,8 @@
           "longitude": 1.874,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "24": {
           "nom": "Dordogne",
@@ -200,7 +227,8 @@
           "longitude": 0.721,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "25": {
           "nom": "Doubs",
@@ -208,7 +236,8 @@
           "longitude": 6.025,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "26": {
           "nom": "Drome",
@@ -216,7 +245,8 @@
           "longitude": 4.894,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "27": {
           "nom": "Eure",
@@ -224,7 +254,8 @@
           "longitude": 1.153,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "28": {
           "nom": "Eure et Loir",
@@ -232,7 +263,8 @@
           "longitude": 1.491,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "29": {
           "nom": "Finistere",
@@ -240,7 +272,8 @@
           "longitude": -4.109,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "2A": {
           "nom": "Corse du Sud",
@@ -248,7 +281,8 @@
           "longitude": 8.734,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "2B": {
           "nom": "Haute Corse",
@@ -256,7 +290,8 @@
           "longitude": 9.446,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "30": {
           "nom": "Gard",
@@ -264,7 +299,8 @@
           "longitude": 4.360,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "31": {
           "nom": "Haute Garonne",
@@ -272,7 +308,8 @@
           "longitude": 1.450,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "32": {
           "nom": "Gers",
@@ -280,7 +317,8 @@
           "longitude": 0.588,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "33": {
           "nom": "Gironde",
@@ -288,7 +326,8 @@
           "longitude": -0.574,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "34": {
           "nom": "Herault",
@@ -296,7 +335,8 @@
           "longitude": 3.874,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "35": {
           "nom": "Ille et Vilaine",
@@ -304,7 +344,8 @@
           "longitude": -1.680,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "36": {
           "nom": "Indre",
@@ -312,7 +353,8 @@
           "longitude": 1.698,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "37": {
           "nom": "Indre et Loire",
@@ -320,7 +362,8 @@
           "longitude": 0.683,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "38": {
           "nom": "Isere",
@@ -328,7 +371,8 @@
           "longitude": 5.722,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "39": {
           "nom": "Jura",
@@ -336,7 +380,8 @@
           "longitude": 5.552,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "40": {
           "nom": "Landes",
@@ -344,7 +389,8 @@
           "longitude": -0.501,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "41": {
           "nom": "Loir et Cher",
@@ -352,7 +398,8 @@
           "longitude": 1.327,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "42": {
           "nom": "Loire",
@@ -360,7 +407,8 @@
           "longitude": 4.389,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "43": {
           "nom": "Haute Loire",
@@ -368,7 +416,8 @@
           "longitude": 3.887,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "44": {
           "nom": "Loire Atlantique",
@@ -376,7 +425,8 @@
           "longitude": -1.551,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "45": {
           "nom": "Loiret",
@@ -384,7 +434,8 @@
           "longitude": 1.907,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "46": {
           "nom": "Lot",
@@ -392,7 +443,8 @@
           "longitude": 1.441,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "47": {
           "nom": "Lot et Garonne",
@@ -400,7 +452,8 @@
           "longitude": 0.621,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "48": {
           "nom": "Lozere",
@@ -408,7 +461,8 @@
           "longitude": 3.498,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "49": {
           "nom": "Maine et Loire",
@@ -416,7 +470,8 @@
           "longitude": -0.542,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "50": {
           "nom": "Manche",
@@ -424,7 +479,8 @@
           "longitude": -1.091,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "51": {
           "nom": "Marne",
@@ -432,7 +488,8 @@
           "longitude": 4.361,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "52": {
           "nom": "Haute Marne",
@@ -440,7 +497,8 @@
           "longitude": 5.139,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "53": {
           "nom": "Mayenne",
@@ -448,7 +506,8 @@
           "longitude": -0.773,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "54": {
           "nom": "Meurthe et Moselle",
@@ -456,7 +515,8 @@
           "longitude": 6.174,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "55": {
           "nom": "Meuse",
@@ -464,7 +524,8 @@
           "longitude": 5.172,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "56": {
           "nom": "Morbihan",
@@ -472,7 +533,8 @@
           "longitude": -2.760,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "57": {
           "nom": "Moselle",
@@ -480,7 +542,8 @@
           "longitude": 6.183,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "58": {
           "nom": "Nievre",
@@ -488,7 +551,8 @@
           "longitude": 3.155,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "59": {
           "nom": "Nord",
@@ -496,7 +560,8 @@
           "longitude": 3.044,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "60": {
           "nom": "Oise",
@@ -512,7 +577,8 @@
           "longitude": 0.088,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "62": {
           "nom": "Pas de Calais",
@@ -520,7 +586,8 @@
           "longitude": 2.767,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "63": {
           "nom": "Puy de Dome",
@@ -528,7 +595,8 @@
           "longitude": 3.085,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "64": {
           "nom": "Pyrenees Atlantiques",
@@ -536,7 +604,8 @@
           "longitude": -0.367,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "65": {
           "nom": "Hautes Pyrenees",
@@ -544,7 +613,8 @@
           "longitude": 0.071,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "66": {
           "nom": "Pyrenees Orientales",
@@ -552,7 +622,8 @@
           "longitude": 2.893,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "67": {
           "nom": "Bas Rhin",
@@ -560,7 +631,8 @@
           "longitude": 7.755,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "68": {
           "nom": "Haut Rhin",
@@ -568,7 +640,8 @@
           "longitude": 7.355,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "69": {
           "nom": "Rhone",
@@ -576,7 +649,8 @@
           "longitude": 4.835,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "70": {
           "nom": "Haute Saone",
@@ -584,7 +658,8 @@
           "longitude": 6.158,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "71": {
           "nom": "Saone et Loire",
@@ -592,7 +667,8 @@
           "longitude": 4.831,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "72": {
           "nom": "Sarthe",
@@ -600,7 +676,8 @@
           "longitude": 0.203,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "73": {
           "nom": "Savoie",
@@ -608,7 +685,8 @@
           "longitude": 5.918,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "74": {
           "nom": "Haute Savoie",
@@ -616,7 +694,8 @@
           "longitude": 6.126,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "75": {
           "nom": "Paris",
@@ -624,7 +703,8 @@
           "longitude": 2.351,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "76": {
           "nom": "Seine Maritime",
@@ -632,7 +712,8 @@
           "longitude": 1.089,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "77": {
           "nom": "Seine et Marne",
@@ -640,7 +721,8 @@
           "longitude": 2.657,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "78": {
           "nom": "Yvelines",
@@ -648,7 +730,8 @@
           "longitude": 2.136,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "79": {
           "nom": "Deux Sevres",
@@ -656,7 +739,8 @@
           "longitude": -0.462,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "80": {
           "nom": "Somme",
@@ -664,7 +748,8 @@
           "longitude": 2.293,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "81": {
           "nom": "Tarn",
@@ -672,7 +757,8 @@
           "longitude": 2.142,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "82": {
           "nom": "Tarn et Garonne",
@@ -680,7 +766,8 @@
           "longitude": 1.360,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "83": {
           "nom": "Var",
@@ -688,7 +775,8 @@
           "longitude": 5.933,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "84": {
           "nom": "Vaucluse",
@@ -696,7 +784,8 @@
           "longitude": 4.810,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "85": {
           "nom": "Vendee",
@@ -704,7 +793,8 @@
           "longitude": -1.429,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "86": {
           "nom": "Vienne",
@@ -712,7 +802,8 @@
           "longitude": 0.343,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "87": {
           "nom": "Haute Vienne",
@@ -720,7 +811,8 @@
           "longitude": 1.258,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "88": {
           "nom": "Vosges",
@@ -728,7 +820,8 @@
           "longitude": 6.447,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "89": {
           "nom": "Yonne",
@@ -736,7 +829,8 @@
           "longitude": 3.571,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "90": {
           "nom": "Territoire de Belfort",
@@ -744,7 +838,8 @@
           "longitude": 6.855,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "91": {
           "nom": "Essone",
@@ -752,7 +847,8 @@
           "longitude": 2.442,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "92": {
           "nom": "Hauts de Seine",
@@ -760,7 +856,8 @@
           "longitude": 2.208,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "93": {
           "nom": "Seine Saint Denis",
@@ -768,7 +865,8 @@
           "longitude": 2.441,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "94": {
           "nom": "Val de Marne",
@@ -776,7 +874,8 @@
           "longitude": 2.460,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         },
         "95": {
           "nom": "Val d'Oise",
@@ -784,13 +883,10 @@
           "longitude": 2.094,
           "fumeurs": 0,
           "total_personnes": 0,
-          "dépressifs": 0
+          "dépressifs": 0,
+          "draw_marker": true
         }
       }
-
-
-      // Variable de configuration :
-      var DONNEES_PARSEES;
 
       // Variables de données utilisable par les graphiques :
       var NOMBRE_TOTAL_FUMEURS;
@@ -801,7 +897,6 @@
 
       // Stocker les données du fichier dans une varibale
       function upload(evt) {
-        
         var data = null;
         var file = evt.target.files[0];
         var reader = new FileReader();
@@ -809,8 +904,6 @@
         reader.onload = function(event) {
           var csvData = event.target.result;
           var data = Papa.parse(csvData, {header : true});
-          this.DONNEES_PARSEES = data;
-          console.log(data);
           dataTreatment(data);
         };
 
@@ -828,6 +921,7 @@
         // Extraction du nombre de fumeurs ou d'anciens fumeurs
         var nombreTotalDeFumeurs = 0;
 
+        // Extraire les personnes avec un antécédents de fumeur
         for (var i = 0; i < data.data.length; i++){
             if (data.data[i].FDR_tabagismeAncien == "1"){
                 nombreTotalDeFumeurs++;
@@ -839,15 +933,39 @@
             }
             nombreDePersonnesTotales++;
         }
-        console.log(this.COORD_DEPARTEMENTS);
-        this.initBaseMap();
+
+        // Extraire les personnes avec un antécédents de dépression
+        for (var i = 0; i < data.data.length; i++){
+          if (data.data[i].ATC_depression == "1"){
+              nombreTotalDeFumeurs++;
+              for (var key in this.COORD_DEPARTEMENTS){
+                if (key == data.data[i].CHA_id_departement_P){
+                  COORD_DEPARTEMENTS[key].dépressifs++;
+                }
+              }
+          }
+        }
+
+        // Appel de la onction d'initialisation de la carte
+        this.initBaseMap("base");
       }
 
-      function initBaseMap(){
-        var mymap = L.map('mapid').setView([46.345, 2.598], 6);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
+      function initBaseMap(mode, donnesATraiter){
+        if (mode == "base"){
+          var mymap = L.map('mapid').setView([46.345, 2.598], 6);
+          L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(mymap);
+
+          this.MAP = mymap;
+        } else if (mode == "redraw"){
+            this.MAP.eachLayer(function (layer) {
+              this.MAP.removeLayer(layer);
+          });
+          L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(this.MAP);
+        }
 
         var greenIcon = new L.Icon({
           iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -877,16 +995,54 @@
         });
 
         for (var key in this.COORD_DEPARTEMENTS){
-          var marker = "";
-          if (this.COORD_DEPARTEMENTS[key].fumeurs >= 0 && this.COORD_DEPARTEMENTS[key].fumeurs <= 100){
-            var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: greenIcon}).addTo(mymap);
-          } else if (this.COORD_DEPARTEMENTS[key].fumeurs >= 101 && this.COORD_DEPARTEMENTS[key].fumeurs <= 250){
-            var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: yellowIcon}).addTo(mymap);
-          } else if (this.COORD_DEPARTEMENTS[key].fumeurs >= 251) {
-            var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: redIcon}).addTo(mymap);
+          if (this.COORD_DEPARTEMENTS[key].draw_marker){
+            var marker = "";
+            if (this.COORD_DEPARTEMENTS[key].fumeurs >= 0 && this.COORD_DEPARTEMENTS[key].fumeurs <= 100){
+              var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: greenIcon}).addTo(this.MAP);
+            } else if (this.COORD_DEPARTEMENTS[key].fumeurs >= 101 && this.COORD_DEPARTEMENTS[key].fumeurs <= 250){
+              var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: yellowIcon}).addTo(this.MAP);
+            } else if (this.COORD_DEPARTEMENTS[key].fumeurs >= 251) {
+              var marker = L.marker([this.COORD_DEPARTEMENTS[key].latitude, this.COORD_DEPARTEMENTS[key].longitude], {icon: redIcon}).addTo(this.MAP);
+            }
+            marker.bindPopup(this.COORD_DEPARTEMENTS[key].nom + "<br>Antécédents Fumeurs : " + this.COORD_DEPARTEMENTS[key].fumeurs + "<br>Antécédents dépression : " + this.COORD_DEPARTEMENTS[key].dépressifs);
           }
-          marker.bindPopup(this.COORD_DEPARTEMENTS[key].nom + "<br>Antécédents Fumeurs : " + this.COORD_DEPARTEMENTS[key].fumeurs);
         }
+
+        var checkDiv = document.getElementById("container_legend");
+        if (!checkDiv){
+
+          var legend = L.control({position: 'bottomright'});
+
+          legend.onAdd = function (mymap) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+              grades = ["< 100", "> 100 < 250", "> 250"],
+              labels = ["images/legende_vert.png", "images/legende_jaune.png", "images/legende_rouge.png"];
+
+          div.setAttribute("id", "container_legend");
+          // loop through our density intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < grades.length; i++) {
+          
+            div.innerHTML +=
+                "<p>"+grades[i]+"</p>" + (" <img src="+ labels[i] +" height='50' width='50'>") +'<br>';
+            div.style = "background-color: rgba(240, 240, 240, 0.8); float: right; padding:10px; border-radius: 15px;";
+          }
+              return div;
+          };
+  
+          legend.addTo(this.MAP);
+        }
+      }
+
+      function updateMap(nombreDeFumeurs){
+        for (var key in this.COORD_DEPARTEMENTS){
+          if (this.COORD_DEPARTEMENTS[key].fumeurs <= nombreDeFumeurs){
+            this.COORD_DEPARTEMENTS[key].draw_marker = false;
+          } else {
+            this.COORD_DEPARTEMENTS[key].draw_marker = true;
+          }
+        }
+        initBaseMap("redraw");
       }
     </script>
   </head>
@@ -894,8 +1050,26 @@
   <body>
     <!--Div that will hold the pie chart-->
     <div class="chart_container">
-      <div id="mapid" style="height:700px"></div>
+      <div id="mapid" style="height:600px"></div>
     </div>
 
+    <div class="button_container">
+      <div class="slidecontainer">
+        <label for="myRange">Départements avec plus de <span id="demo"></span> fumeurs</label>
+        <input type="range" min="0" max="500" value="0" class="slider" id="myRange">
+      </div>
+    </div>
     </body>
+
+    <script>
+      var slider = document.getElementById("myRange");
+      var output = document.getElementById("demo");
+      output.innerHTML = slider.value; // Display the default slider value
+
+      // Update the current slider value (each time you drag the slider handle)
+      slider.oninput = function() {
+        output.innerHTML = this.value;
+        updateMap(this.value);
+      }
+    </script>
 </html>
